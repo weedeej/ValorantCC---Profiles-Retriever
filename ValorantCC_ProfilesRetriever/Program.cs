@@ -39,7 +39,10 @@ namespace ValorantCC_ProfilesRetriever
             string responseContext = client.Get(request).Content;
             Dictionary<string, object> response = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseContext);
             Data settings = AuthObj.Decompress(Convert.ToString(response["data"]));
-            string ProfileData;
+            string UserSettings = JsonConvert.SerializeObject(settings);
+            AuthObj.Log("Is User settings list? : " + CheckIfList(settings).ToString());
+            return UserSettings;
+            /*string ProfileData;
             if (CheckIfList(settings))
             {
                 int SavedProfilesIndex = settings.stringSettings.ToList().FindIndex(setting => setting.settingEnum == "EAresStringSettingName::SavedCrosshairProfileData");
@@ -49,8 +52,8 @@ namespace ValorantCC_ProfilesRetriever
             {
                 ProfileData = "Not a list.Fetch is unapplicable.";
             }
-            
-            return ProfileData;
+
+            return ProfileData;*/
         }
 
         private static bool CheckIfList(Data settings)
